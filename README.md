@@ -1,6 +1,6 @@
 # magicavoxel_to_scn
 
-MagicaVoxel model convert to SceneKit scene file tool.
+This tool converts MagicaVoxel's model to SceneKit scene file.
 
 ## Require tools
 
