@@ -1,0 +1,43 @@
+<!DOCTYPE FilterScript>
+<FilterScript>
+ <filter name="Transform: Rotate">
+  <Param name="rotAxis" description="Rotation on:" enum_val0="X axis" enum_val1="Y axis" enum_val2="Z axis" enum_val3="custom axis" value="0" enum_cardinality="4" type="RichEnum" tooltip="Choose a method"/>
+  <Param name="rotCenter" description="Center of rotation:" enum_val0="origin" enum_val1="barycenter" enum_val2="custom point" value="0" enum_cardinality="3" type="RichEnum" tooltip="Choose a method"/>
+  <Param name="angle" description="Rotation Angle" min="-360" max="360" value="-90" type="RichDynamicFloat" tooltip="Angle of rotation (in &lt;b>degree&lt;/b>). If snapping is enable this vaule is rounded according to the snap value"/>
+  <Param name="customAxis" description="Custom axis" x="0" y="0" z="0" type="RichPoint3f" tooltip="This rotation axis is used only if the 'custom axis' option is chosen."/>
+  <Param name="customCenter" description="Custom center" x="0" y="0" z="0" type="RichPoint3f" tooltip="This rotation center is used only if the 'custom point' option is chosen."/>
+  <Param name="snapFlag" description="Snap angle" value="false" type="RichBool" tooltip="If selected, before starting the filter will remove anyy unreference vertex (for which curvature values are not defined)"/>
+  <Param name="snapAngle" description="Snapping Value" value="30" type="RichFloat" tooltip="This value is used to snap the rotation angle (i.e. if the snapping value is 30, 227 becomes 210)."/>
+  <Param name="Freeze" description="Freeze Matrix" value="true" type="RichBool" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed"/>
+  <Param name="allLayers" description="Apply to all visible Layers" value="false" type="RichBool" tooltip="If selected the filter will be applied to all visible mesh layers"/>
+ </filter>
+ <filter name="Transform: Scale, Normalize">
+  <Param name="axisX" description="X Axis" value="<%= @scale %>" type="RichFloat" tooltip="Scaling"/>
+  <Param name="axisY" description="Y Axis" value="<%= @scale %>" type="RichFloat" tooltip="Scaling"/>
+  <Param name="axisZ" description="Z Axis" value="<%= @scale %>" type="RichFloat" tooltip="Scaling"/>
+  <Param name="uniformFlag" description="Uniform Scaling" value="true" type="RichBool" tooltip="If selected an uniform scaling (the same for all the three axis) is applied (the X axis value is used)"/>
+  <Param name="scaleCenter" description="Center of scaling:" enum_val0="origin" enum_val1="barycenter" enum_val2="custom point" value="0" enum_cardinality="3" type="RichEnum" tooltip="Choose a method"/>
+  <Param name="customCenter" description="Custom center" x="0" y="0" z="0" type="RichPoint3f" tooltip="This scaling center is used only if the 'custom point' option is chosen."/>
+  <Param name="unitFlag" description="Scale to Unit bbox" value="false" type="RichBool" tooltip="If selected, the object is scaled to a box whose sides are at most 1 unit lenght"/>
+  <Param name="Freeze" description="Freeze Matrix" value="true" type="RichBool" tooltip="The transformation is explicitly applied, and the vertex coordinates are actually changed"/>
+  <Param name="allLayers" description="Apply to all visible Layers" value="false" type="RichBool" tooltip="If selected the filter will be applied to all visible mesh layers"/>
+ </filter>
+ <filter name="Parametrization: Trivial Per-Triangle">
+  <Param name="sidedim" description="Quads per line" value="0" type="RichInt" tooltip="Indicates how many triangles have to be put on each line (every quad contains two triangles)&#xa;Leave 0 for automatic calculation"/>
+  <Param name="textdim" description="Texture Dimension (px)" value="1024" type="RichInt" tooltip="Gives an indication on how big the texture is"/>
+  <Param name="border" description="Inter-Triangle border (px)" value="2" type="RichInt" tooltip="Specifies how many pixels to be left between triangles in parametrization domain"/>
+  <Param name="method" description="Method" enum_val0="Basic" enum_val1="Space-optimizing" value="0" enum_cardinality="2" type="RichEnum" tooltip="Choose space optimizing to map smaller faces into smaller triangles in parametrizazion domain"/>
+ </filter>
+ <filter name="Transfer: Vertex Attributes to Texture (1 or 2 meshes)">
+  <Param name="sourceMesh" description="Source Mesh" value="0" type="RichMesh" tooltip="The mesh that contains the source data that we want to transfer"/>
+  <Param name="targetMesh" description="Target Mesh" value="0" type="RichMesh" tooltip="The mesh whose texture will be filled according to source mesh data"/>
+  <Param name="AttributeEnum" description="Color Data Source" enum_val0="Vertex Color" enum_val1="Vertex Normal" enum_val2="Vertex Quality" enum_val3="Texture Color" value="0" enum_cardinality="4" type="RichEnum" tooltip="Choose what attribute has to be transferred onto the target texture. You can choos bettween Per vertex attributes (clor,normal,quality) or to transfer color information from source mesh texture"/>
+  <Param name="upperBound" description="Max Dist Search" min="0" max="0.298831" value="0.0059766" type="RichAbsPerc" tooltip="Sample points for which we do not find anything whithin this distance are rejected and not considered for recovering data"/>
+  <Param name="textName" description="Texture file" value="<%= @tex_file_name %>" type="RichString" tooltip="The texture file to be created"/>
+  <Param name="textW" description="Texture width (px)" value="1024" type="RichInt" tooltip="The texture width"/>
+  <Param name="textH" description="Texture height (px)" value="1024" type="RichInt" tooltip="The texture height"/>
+  <Param name="overwrite" description="Overwrite Target Mesh Texture" value="false" type="RichBool" tooltip="if target mesh has a texture will be overwritten (with provided texture dimension)"/>
+  <Param name="assign" description="Assign Texture" value="false" type="RichBool" tooltip="assign the newly created texture to target mesh"/>
+  <Param name="pullpush" description="Fill texture" value="true" type="RichBool" tooltip="if enabled the unmapped texture space is colored using a pull push filling algorithm, if false is set to black"/>
+ </filter>
+</FilterScript>
